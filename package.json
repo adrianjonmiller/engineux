@@ -1,6 +1,6 @@
 {
   "name": "engineux",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "State machine for floux ",
   "main": "dist/index.js",
   "author": "Code Mill",
