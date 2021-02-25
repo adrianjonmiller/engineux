@@ -1,0 +1,25 @@
+{
+  "name": "engineux",
+  "version": "0.0.1",
+  "description": "State machine for floux ",
+  "main": "dist/index.js",
+  "author": "Code Mill",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "babel src/index.js --out-file dist/index.js",
+    "watch": "babel src/index.js --watch  --out-file dist/index.js",
+    "publish:patch": "yarn build && npm version patch && npm publish"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.9.0",
+    "@babel/plugin-transform-modules-umd": "7.9.0",
+    "@babel/preset-env": "7.9.0",
+    "babel-jest": "25.1.0",
+    "jest": "25.1.0"
+  },
+  "dependencies": {
+    "storeux": "0.0.1"
+  }
+}

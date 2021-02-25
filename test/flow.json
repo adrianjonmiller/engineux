@@ -1,0 +1,133 @@
+{
+  "_3nanqoc": {
+    "component": "Node",
+    "name": "",
+    "viewState": "default",
+    "defaultName": "Node 4",
+    "coords": [
+      "top left",
+      257,
+      328
+    ],
+    "events": [
+      {
+        "next": "_6kplw0k",
+        "name": null,
+        "defaultName": "EVENT 1",
+        "coords": [
+          "top left",
+          295,
+          413.25
+        ]
+      },
+      {
+        "next": "_egqavyc",
+        "name": null,
+        "defaultName": "EVENT 2",
+        "coords": [
+          "top left",
+          321.5,
+          413.25
+        ]
+      }
+    ]
+  },
+  "_6kplw0k": {
+    "component": "Node",
+    "name": "",
+    "viewState": "default",
+    "defaultName": "Node 5",
+    "coords": [
+      "top left",
+      268,
+      546
+    ],
+    "events": [
+      {
+        "name": null,
+        "defaultName": "EVENT 1"
+      }
+    ]
+  },
+  "_egqavyc": {
+    "component": "Node",
+    "name": "",
+    "viewState": "default",
+    "defaultName": "Node 6",
+    "events": [],
+    "coords": [
+      "top left",
+      435,
+      523
+    ]
+  },
+  "_i7paikx": {
+    "component": "Node",
+    "meta": {
+      "description": ""
+    },
+    "name": "",
+    "defaultName": "Start",
+    "coords": [
+      "top left",
+      132.5,
+      33.5
+    ],
+    "events": [
+      {
+        "next": "_thv03ii",
+        "name": "EVENT 1",
+        "coords": [
+          "top left",
+          170.5,
+          118.75
+        ]
+      },
+      {
+        "next": "_3nanqoc",
+        "name": null,
+        "defaultName": "EVENT 2",
+        "coords": [
+          "top left",
+          197,
+          118.75
+        ]
+      }
+    ]
+  },
+  "_ie7vgu4": {
+    "component": "Node",
+    "name": "",
+    "viewState": "default",
+    "defaultName": "Node 7",
+    "events": [],
+    "coords": [
+      "top left",
+      102,
+      602
+    ]
+  },
+  "_thv03ii": {
+    "component": "Node",
+    "name": "",
+    "viewState": "default",
+    "defaultName": "Node 7",
+    "coords": [
+      "top left",
+      111,
+      357
+    ],
+    "events": [
+      {
+        "next": "_ie7vgu4",
+        "name": null,
+        "defaultName": "EVENT 1",
+        "coords": [
+          "top left",
+          149,
+          442.25
+        ]
+      }
+    ]
+  }
+}
