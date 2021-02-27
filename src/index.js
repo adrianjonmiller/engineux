@@ -167,7 +167,7 @@ export default class {
         this.stateListener({
           back: () => this.back.call(this),
           emit: (event, payload) =>  this.emit.call(this, event, payload),
-          events: this.getEvents(),
+          on: this.getEvents(),
           data: this.getData(),
           state: this.currentState,
           prev: prevState,
