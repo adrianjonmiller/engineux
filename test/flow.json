@@ -9,7 +9,7 @@
       257,
       328
     ],
-    "events": [
+    "on": [
       {
         "next": "_6kplw0k",
         "name": null,
@@ -42,7 +42,7 @@
       268,
       546
     ],
-    "events": [
+    "on": [
       {
         "name": null,
         "defaultName": "EVENT 1"
@@ -54,7 +54,7 @@
     "name": "",
     "viewState": "default",
     "defaultName": "Node 6",
-    "events": [],
+    "on": [],
     "coords": [
       "top left",
       435,
@@ -73,7 +73,7 @@
       132.5,
       33.5
     ],
-    "events": [
+    "on": [
       {
         "next": "_thv03ii",
         "name": "EVENT 1",
@@ -100,7 +100,7 @@
     "name": "",
     "viewState": "default",
     "defaultName": "Node 7",
-    "events": [],
+    "on": [],
     "coords": [
       "top left",
       102,
@@ -117,7 +117,7 @@
       111,
       357
     ],
-    "events": [
+    "on": [
       {
         "next": "_ie7vgu4",
         "name": null,

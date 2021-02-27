@@ -4,7 +4,7 @@ function attempt (fn) {
   try {
     return fn()
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -103,7 +103,7 @@ export default class {
   }
 
   getEvents () {
-    return attempt(() => this.store.get(`${this.currentState}.events`))
+    return attempt(() => this.store.get(`${this.currentState}.on`))
   }
 
   getPrevState () {
@@ -124,7 +124,7 @@ export default class {
 
   emit (ref, payload) {
     return attempt(() => {
-      const event = this.store.get(`${this.currentState}.events.${ref}`);
+      const event = this.store.get(`${this.currentState}.on.${ref}`);
       
       if (!event) {
         throw `${event} does not exist in state ${this.currentState}`
