@@ -26,7 +26,7 @@ export default class {
 
     if (args.length === 3) {
       this.startState = typeof args[1] === 'string' ? args[1] : null;
-      this.stateListener = typeof args[2] === 'function' ? args[1] : null;
+      this.stateListener = typeof args[2] === 'function' ? args[2] : null;
     }
 
     this.methods = (ctx) => ({
@@ -49,7 +49,7 @@ export default class {
   start (startState) {
     this.startState = startState || this.startState;
 
-    attempt(() => {
+    return attempt(() => {
       if (this.started) {
         console.log('Machine is already running');
       }
@@ -65,7 +65,7 @@ export default class {
       }
 
       this.started = true;
-      this.setState(this.startState)
+      return this.setState(this.startState)
     });
   }
 
@@ -122,6 +122,14 @@ export default class {
     })
   }
 
+  try(ref, payload) {
+    const event = this.store.get(`${this.currentState}.on.${ref}`);
+    if (!event) {
+      return
+    }
+    this.emit(ref), payload
+  }
+
   emit (ref, payload) {
     return attempt(() => {
       const event = this.store.get(`${this.currentState}.on.${ref}`);
@@ -139,6 +147,12 @@ export default class {
       if (this.beforeGuard) {
         this.beforeGuard.call({}, this.methods(this), nextState, this.currentState, (redirect) => this.newState(redirect || nextState));
         return this.methods(this);
+      }
+
+      const leave = this.store.get(`${this.currentState}.leave`);
+
+      if (leave && typeof leave === 'function') {
+        leave.call({}, this.methods(this), nextState, this.currentState)
       }
 
       return this.setState(nextState, payload)
@@ -162,6 +176,12 @@ export default class {
       }
 
       this.currentState = nextState;
+
+      const enter = this.store.get(`${this.currentState}.enter`);
+
+      if (enter && typeof enter === 'function') {
+        enter.call({}, this.methods(this), nextState, prevState, payload)
+      }
 
       if (this.stateListener && typeof this.stateListener === 'function') {
         this.stateListener({
@@ -189,6 +209,5 @@ export default class {
       this.beforeGuard = cb;
       return this.methods(this)
     })
-    
   }
 }
