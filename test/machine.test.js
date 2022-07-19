@@ -1,32 +1,74 @@
-import flow from './flow.json';
 import Machine from '../src'
 
-const machine = new Machine(flow, '_3nanqoc');
-machine.start();
+const flow = {
+  'default': {
+    data: {},
+    on: {
+      submit: {
+        next: 'loading'
+      },
+    }
+  },
+  'loading': {
+    data: {},
+    on: {
+      success: {
+        next: 'success',
+        listener: ({next}) => next()
+      },
+      failure: {next: 'failure'},
+    }
+  },
+  'success': {
+    data: {},
+    on: {}
+  },
+  'error': {
+    data: {},
+    on: {
+      submit: {next: 'loading'},
+    }
+  }
+};
+
+let machine;
+
+test('Machine started', (done) => {
+  machine = new Machine(flow, 'default', () => {
+    done();
+  });
+
+  machine.start();
+})
 
 test('Get current state', () => {
-  expect(machine.getState()).toBe('_3nanqoc');
+  expect(machine.getState()).toBe('default');
 });
 
 test('Get state events', () => {
-  expect(machine.getEvents().length).toBe(2);
+  expect(machine.getEvents().length).toBe(1);
 });
 
 test('Emit event', () => {
-  expect(machine.emit(0).getState()).toBe('_6kplw0k');
+  expect(machine.emit('submit').getState()).toBe('loading');
 });
 
 test('Get previous event', () => {
-  expect(machine.getPrevState()).toBe('_3nanqoc');
+  expect(machine.getPrevState()).toBe('default');
 });
 
 test('Go to previous state', () => {
-  expect(machine.back().getState()).toBe('_3nanqoc');
+  expect(machine.back().getState()).toBe('default');
 });
 
 test('On state change', (done) => {
   machine.onStateChange((_) => {
     done();
-  })
-  machine.emit(0)
+  });
+  machine.emit('submit')
+});
+
+test('Call listener', () => {
+  machine.emit('success');
+  expect(machine.getState()).toBe('success');
 });

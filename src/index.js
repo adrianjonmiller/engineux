@@ -65,6 +65,7 @@ export default class {
       }
 
       this.started = true;
+      
       return this.setState(this.startState)
     });
   }
@@ -103,7 +104,7 @@ export default class {
   }
 
   getEvents () {
-    return attempt(() => this.store.get(`${this.currentState}.on`))
+    return attempt(() => Object.keys(this.store.get(`${this.currentState}.on`)))
   }
 
   getPrevState () {
@@ -127,18 +128,25 @@ export default class {
     if (!event) {
       return
     }
-    this.emit(ref), payload
+    this.emit(ref, payload)
   }
 
-  emit (ref, payload) {
+  emit (ref, ...payload) {
     return attempt(() => {
       const event = this.store.get(`${this.currentState}.on.${ref}`);
       
       if (!event) {
-        throw `${event} does not exist in state ${this.currentState}`
+        throw `
+                ${event} does not exist in state ${this.currentState}.
+                Available events ${Object.keys(this.store.get(`${this.currentState}.on`)).join(', ')}.
+              `
       }
 
       const nextState = 'next' in event ? event.next : null;
+
+      if (typeof event.listener === 'function') {
+        return event.listener.apply({}, [{...this.methods, next: (...newPayload) => this.setState(nextState, (newPayload.length > 0 ? newPayload : payload))}, ...payload])
+      }
 
       if (nextState === this.currentState) {
         return 
@@ -186,7 +194,7 @@ export default class {
       if (this.stateListener && typeof this.stateListener === 'function') {
         this.stateListener({
           back: () => this.back.call(this),
-          emit: (event, payload) =>  this.emit.call(this, event, payload),
+          emit: (event, payload) => this.emit.call(this, event, payload),
           on: this.getEvents(),
           data: this.getData(),
           state: this.currentState,
