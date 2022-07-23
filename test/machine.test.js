@@ -74,6 +74,6 @@ test('Call listener', () => {
   expect(machine.getState()).toBe('success');
 });
 
-// test('Extend', () => {
-//   expect(machine.getData().test).toBe('test');
-// });
+test('Extend', () => {
+  expect(machine.getData().test).toBe('test');
+});
