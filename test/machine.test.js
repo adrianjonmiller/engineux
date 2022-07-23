@@ -2,7 +2,9 @@ import Machine from '../src'
 
 const flow = {
   'default': {
-    data: {},
+    data: {
+      test: 'test'
+    },
     on: {
       submit: {
         next: 'loading'
@@ -20,8 +22,7 @@ const flow = {
     }
   },
   'success': {
-    data: {},
-    on: {}
+    extend: 'default'
   },
   'error': {
     data: {},
@@ -72,3 +73,7 @@ test('Call listener', () => {
   machine.emit('success');
   expect(machine.getState()).toBe('success');
 });
+
+// test('Extend', () => {
+//   expect(machine.getData().test).toBe('test');
+// });

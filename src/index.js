@@ -1,4 +1,5 @@
 import Store from 'storeux';
+import {merge} from 'lodash'
 
 function attempt (fn) {
   try {
@@ -100,11 +101,20 @@ export default class {
   }
 
   getData () {
-    return attempt(() => this.store.get(`${this.currentState}.data`))
+    const extendState = this.store.get(`${this.currentState}.extend`);
+    if (!extendState) {
+      return attempt(() => this.store.get(`${this.currentState}.data`))
+    }
+
+    return  attempt(() => merge(this.store.get(`${extendState}.data`), this.store.get(`${this.currentState}.data`)));
+    
   }
 
   getEvents () {
-    return attempt(() => Object.keys(this.store.get(`${this.currentState}.on`)))
+    return attempt(() => {
+      const events = this.store.get(`${this.currentState}.on`);
+      return events ? Object.keys(events) : []    
+    })
   }
 
   getPrevState () {

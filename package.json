@@ -20,6 +20,7 @@
     "jest": "25.1.0"
   },
   "dependencies": {
+    "lodash": "4.17.21",
     "storeux": "0.0.1"
   },
   "repository": {
