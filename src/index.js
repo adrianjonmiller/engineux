@@ -146,10 +146,8 @@ export default class {
       const event = this.store.get(`${this.currentState}.on.${ref}`);
       
       if (!event) {
-        throw `
-                ${event} does not exist in state ${this.currentState}.
-                Available events ${Object.keys(this.store.get(`${this.currentState}.on`)).join(', ')}.
-              `
+        return console.warn(`${ref} does not exist in state ${this.currentState}.
+        Available events ${Object.keys(this.store.get(`${this.currentState}.on`)).join(', ')}.`)
       }
 
       const nextState = 'next' in event ? event.next : null;
